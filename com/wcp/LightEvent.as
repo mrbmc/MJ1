@@ -1,0 +1,1 @@
+﻿package com.wcp {	import flash.events.Event;	public class LightEvent extends Event {		public var index:int;		public var brightness:int;		public var display:Array;		public function LightEvent (_index:int=-1,_brightness:int=100,_display:Array=null) {			this.index = _index;			this.brightness = _brightness;			this.display = _display;			super("light");		}	}}

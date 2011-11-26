@@ -1,0 +1,1 @@
+﻿package com.wcp {	public class Debugger extends EventDispatcher {		private var instance:Object;		public function Debugger () {		}	}}
