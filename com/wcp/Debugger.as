@@ -1,1 +1,1 @@
-﻿package com.wcp {	public class Debugger extends EventDispatcher {		private var instance:Object;		public function Debugger () {		}	}}
+﻿package com.wcp {	import flash.display.Sprite;	public class Debugger extends Sprite {		private var instance:Object;		public function Debugger () {		}		public function o (o:Object) {			msg = (o is DebugEvent) ? o.msg : o;			trace(msg);			stage.myConsole.text = msg+"\n"+myConsole.text;		}	}}

@@ -1,0 +1,1 @@
+﻿package com.wcp {	import flash.events.Event;	public class ColorEvent extends Event {		public var color:uint;		public function ColorEvent (c:String="000000") {			this.color = uint("0x"+c);			super("color");		}	}}
