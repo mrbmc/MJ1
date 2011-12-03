@@ -1,1 +1,1 @@
-﻿package com.wcp {	import flash.events.Event;	public class DebugEvent extends Event {		public var msg:String;		public function DebugEvent (_msg:String) {			this.msg = _msg;			super("debug");		}	}}
+﻿package com.wcp {	import flash.events.Event;	public class DebugEvent extends Event {		public var msg:String;		public function DebugEvent (_msg:String,_data:Object=null) {			this.msg = _msg;			super("debug");		}	}}

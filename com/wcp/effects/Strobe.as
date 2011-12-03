@@ -1,0 +1,1 @@
+﻿package com.wcp.effects {	import com.wcp.Effect;	public class Strobe extends Effect {		public function Strobe ():void {			super("strobe");			speed = 2;			hasChannel = false;			a = new Array();b = new Array();			for(i=0;i<60;i++) a.push(i);			for(i=0;i<32;i++) {				if(i%2==0) {					sequence.push(a);				} else {					sequence.push(b);				}			}		}	}}
