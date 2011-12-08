@@ -59,6 +59,13 @@
 			PHIDGET_SERVO_FIRGELLI_L12_50_210_06_R - Firgelli L12 Linear Actuator 50mm 210:1
 			PHIDGET_SERVO_FIRGELLI_L12_100_50_06_R - Firgelli L12 Linear Actuator 100mm 50:1
 			PHIDGET_SERVO_FIRGELLI_L12_100_100_06_R - Firgelli L12 Linear Actuator 100mm 100:1
+			PHIDGET_SERVO_SPRINGRC_SM_S2313M - SpringRC SM-S2313M Micro Servo
+			PHIDGET_SERVO_SPRINGRC_SM_S3317M - SpringRC SM-S3317M Small Servo
+			PHIDGET_SERVO_SPRINGRC_SM_S3317SR - SpringRC SM-S3317SR Small Continuous Rotation Servo
+			PHIDGET_SERVO_SPRINGRC_SM_S4303R - SpringRC SM-S4303R Standard Continuous Rotation Servo
+			PHIDGET_SERVO_SPRINGRC_SM_S4315M - SpringRC SM-S4315M High Torque Servo
+			PHIDGET_SERVO_SPRINGRC_SM_S4315R - SpringRC SM-S4315R High Torque Continuous Rotation Servo
+			PHIDGET_SERVO_SPRINGRC_SM_S4505B - SpringRC SM-S4505B Standard Servo
 			PHIDGET_SERVO_USER_DEFINED - User defined servo parameters
 			
 		*/
@@ -79,7 +86,14 @@
 		public static const PHIDGET_SERVO_FIRGELLI_L12_50_210_06_R:int = 15;
 		public static const PHIDGET_SERVO_FIRGELLI_L12_100_50_06_R:int = 16;
 		public static const PHIDGET_SERVO_FIRGELLI_L12_100_100_06_R:int = 17;
-		public static const PHIDGET_SERVO_USER_DEFINED:int = 18;
+		public static const PHIDGET_SERVO_SPRINGRC_SM_S2313M:int = 18;	
+		public static const PHIDGET_SERVO_SPRINGRC_SM_S3317M:int = 19;	
+		public static const PHIDGET_SERVO_SPRINGRC_SM_S3317SR:int = 20;	
+		public static const PHIDGET_SERVO_SPRINGRC_SM_S4303R:int = 21;	
+		public static const PHIDGET_SERVO_SPRINGRC_SM_S4315M:int = 22;	
+		public static const PHIDGET_SERVO_SPRINGRC_SM_S4315R:int = 23;	
+		public static const PHIDGET_SERVO_SPRINGRC_SM_S4505B:int = 24;	
+		public static const PHIDGET_SERVO_USER_DEFINED:int = 25;
 		
 		
 		public function PhidgetAdvancedServo(){

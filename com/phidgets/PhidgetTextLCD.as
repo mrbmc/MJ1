@@ -1,4 +1,4 @@
-package com.phidgets
+﻿package com.phidgets
 {
 	import com.phidgets.events.PhidgetDataEvent;
 	
@@ -135,14 +135,14 @@ package com.phidgets
 			Gets the number of rows available on the LCD.
 		*/
 		public function get RowCount():int{
-			return int(indexArray(numRows, currentScreen, numScreens, com.phidgets.Constants.PUNK_BOOL));
+			return int(indexArray(numRows, currentScreen, numScreens, com.phidgets.Constants.PUNK_INT));
 		}
 		/*
 			Property: ColumnCount
 			Gets the number of columns available per row on the LCD.
 		*/
 		public function get ColumnCount():int{
-			return int(indexArray(numColumns, currentScreen, numScreens, com.phidgets.Constants.PUNK_BOOL));
+			return int(indexArray(numColumns, currentScreen, numScreens, com.phidgets.Constants.PUNK_INT));
 		}
 		/*
 			Property: Backlight
@@ -315,7 +315,7 @@ package com.phidgets
 		*/
 		public function initialize():void{ 
 			init[currentScreen] ^= 1;
-			_phidgetSocket.setKey(makeKey("Init"), init[currentScreen].toString(), true);
+			_phidgetSocket.setKey(makeIndexedKey("Init", currentScreen, numScreens), init[currentScreen].toString(), true);
 		}
 	}
 }

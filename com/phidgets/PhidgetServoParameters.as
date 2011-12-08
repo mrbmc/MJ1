@@ -76,6 +76,20 @@ package com.phidgets
 					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_FIRGELLI_L12_100_50_06_R,		1000,			2000,				1000/100.0,		1000/100.0*23);
 				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_FIRGELLI_L12_100_100_06_R:
 					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_FIRGELLI_L12_100_100_06_R,	1000,			2000,				1000/100.0,		1000/100.0*12);
+				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S2313M:
+					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S2313M,		535,			2210,				1675/180.0,		1675/180.0*600);
+				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S3317M:
+					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S3317M,		565,			2365,				1800/180.0,		1800/180.0*375);
+				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S3317SR:
+					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S3317SR,		1125,			1745,				620/100.0,		50/12.0*16384);
+				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4303R:
+					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4303R,		1050,			1950,				910/100.0,		50/12.0*1638);
+				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4315M:
+					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4315M,		630,			2370,				1740/180.0,		1740/180.0*285);
+				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4315R:
+					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4315R,		1150,			1800,				650/100.0,		50/12.0*16384);
+				case com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4505B:
+					return new PhidgetServoParameters(com.phidgets.PhidgetAdvancedServo.PHIDGET_SERVO_SPRINGRC_SM_S4505B,		665,			2280,				1615/180.0,		1615/180.0*400);
 				default:
 					throw new com.phidgets.PhidgetError(com.phidgets.Constants.EPHIDGET_OUTOFBOUNDS);
 			}

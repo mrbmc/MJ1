@@ -10,15 +10,19 @@ package com.phidgets
 		The error codes that can show up are documented in <Constants>.
 	*/
 	public class PhidgetError extends Error {
+    	
 		/*
 			Constructor: PhidgetError
 			Creates a new PhidgetError object
 			
 			Parameters:
 				errorID - error code
+				message - error message
 		*/
-    	public function PhidgetError(errorID:int) {
-        	super(com.phidgets.Constants.Phid_ErrorDescriptions[errorID], errorID);
+    	public function PhidgetError(errorID:int, message:String = null) {
+    		if(message == null)
+    			message = com.phidgets.Constants.Phid_ErrorDescriptions[errorID];
+        	super(message, errorID);
     	}
     	
     	/*

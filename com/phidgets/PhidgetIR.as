@@ -1,4 +1,4 @@
-package com.phidgets
+﻿package com.phidgets
 {
 	import com.phidgets.events.PhidgetDataEvent;
 	import flash.accessibility.Accessibility;
@@ -20,6 +20,8 @@ package com.phidgets
 	{
 		internal static const IR_DATA_ARRAY_SIZE:int = 2048;
 		internal static const IR_DATA_ARRAY_MASK:int = 0x7ff;
+		
+		public static const RAWDATA_LONGSPACE:int = 0xfffff; //1048575;
 	
 		private var rawData:Array;
 		private var dataWritePtr:int;

@@ -2,7 +2,6 @@ package com.phidgets
 {
 	import com.phidgets.Constants;
 	import com.phidgets.events.PhidgetEvent;
-	import com.phidgets.events.PhidgetErrorEvent;
 	import flash.events.EventDispatcher;
 	/*
 		Class: PhidgetIRCodeInfo

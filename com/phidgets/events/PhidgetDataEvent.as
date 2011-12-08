@@ -18,15 +18,22 @@
 			Pass these constants to the addEventListener() function when adding event listeners to a Phidget object.
 			
 			ACCELERATION_CHANGE	-	An acceleration changed. Used by <PhidgetAccelerometer>.
+			BACKEMF_UPDATE		-	Fixed rate BackEMF event. Used by <PhidgetMotorControl>.
+			BRIDGE_DATA			-	Bridge data is recieved. Used by <PhidgetBridge>.
 			CODE				-	An IR code was recieved. Used by <PhidgetIR>.
+			COUNT				-	Counts were recieved. used by <PhidgetFrequencyCounter>.
 			CURRENT_CHANGE		-	A current changed. Used by <PhidgetAdvancedServo>, <PhidgetMotorControl> and <PhidgetStepper>.
+			CURRENT_UPDATE		-	Fixed rate current event. Used by <PhidgetMotorControl>.
+			FIX_CHANGE			-	A position fix status changed. Used by <PhidgetGPS>.
 			INPUT_CHANGE		-	A digital input changed. Used by <PhidgetEncoder>, <PhidgetInterfaceKit>, <PhidgetMotorControl> and <PhidgetStepper>.
 			LEARN				-	An IR code was learned. Used by <PhidgetIR>.
 			OUTPUT_CHANGE		-	A digital output changed. Used by <PhidgetInterfaceKit> and <PhidgetRFID>.
 			PH_CHANGE			-	A PH changed. Used by <PhidgetPHSensor>.
-			POSITION_CHANGE		-	A position changed.	Used by <PhidgetAdvancedServo>, <PhidgetEncoder>, <PhidgetServo> and <PhidgetStepper>.
+			POSITION_CHANGE		-	A position changed.	Used by <PhidgetAdvancedServo>, <PhidgetEncoder>, <PhidgetGPS>, <PhidgetMotorControl>, <PhidgetServo> and <PhidgetStepper>.
+			POSITION_UPDATE		-	Fixed rate position event.	Used by <PhidgetMotorControl>.
 			RAW_DATA			-	Raw data was recieved. Used by <PhidgetIR>.
 			SENSOR_CHANGE		-	An analog input changed. Used by <PhidgetInterfaceKit>.
+			SENSOR_UPDATE		-	Fixed rate sensor event. Used by <PhidgetMotorControl>.
 			SPATIAL_DATA		-	Spatial data was recieved. Used by <PhidgetSpatial>.
 			TAG					-	An RFID tag was detected. Used by <PhidgetRFID>.
 			TAG_LOST			-	An RFID tag was removed. Used by <PhidgetRFID>.
@@ -47,9 +54,16 @@
 		//public static const POSITION_CHANGE	:String = "positionChange";
 		//public static const CURRENT_CHANGE 	:String = "currentChange";
 		//public static const VELOCITY_CHANGE	:String = "velocityChange";
+	//Bridge
+		public static const BRIDGE_DATA		:String = "bridgeDate";
 	//Encoder
 		//public static const POSITION_CHANGE	:String = "positionChange";
 		//public static const INPUT_CHANGE	:String = "inputChange";
+	//FrequencyCounter
+		public static const COUNT			:String = "count";
+	//GPS
+		//public static const POSITION_CHANGE	:String = "positionChange";
+		public static const FIX_CHANGE		:String = "fixChange";
 	//InterfaceKit
 		public static const SENSOR_CHANGE	:String = "sensorChange";
 		//public static const INPUT_CHANGE	:String = "inputChange";
@@ -63,6 +77,11 @@
 		//public static const CURRENT_CHANGE 	:String = "currentChange";
 		//public static const VELOCITY_CHANGE	:String = "velocityChange";
 		//public static const INPUT_CHANGE	:String = "inputChange";
+		//public static const POSITION_CHANGE	:String = "positionChange";
+		public static const POSITION_UPDATE	:String = "positionUpdate";
+		public static const SENSOR_UPDATE	:String = "sensorUpdate";
+		public static const BACKEMF_UPDATE	:String = "backemfUpdate";
+		public static const CURRENT_UPDATE	:String = "currentUpdate";
 	//PHSensor
 		public static const PH_CHANGE		:String = "phChange";
 	//RFID

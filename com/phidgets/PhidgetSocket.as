@@ -47,8 +47,15 @@
 		*		-1011 support
 		*		-1204 support
 		*
+		*	1.0.8
+		*		-support for 1065, 1002, 1040, 1046, 1056
+		*		-support for error events
+		*
+		*	1.0.9
+		*		-support for openLabelRemote and openLabelRemoteIP
+		*
 		*/
-		private const protocol_ver:String = "1.0.7";
+		private const protocol_ver:String = "1.0.9";
 		
 		private var _socket:XMLSocket;
 		private var _host:String = null;
@@ -126,16 +133,16 @@
 			return 0;
 		}
 		
-		private function escape(val:String):String {
+		public function escape(val:String, escBacks:Boolean = false):String {
 			var newVal:String = "";
 			if(val.length == 0)
-				newVal = "\\x01";
+				newVal = (escBacks ? "\\\\x01" : "\\x01");
 			else
 			{
 				for(var i:int = 0; i<val.length; i++) {
 					var charCode:Number = val.charCodeAt(i)
 					if(!goodChar(charCode))
-						newVal = newVal.concat("\\x" + hexChar(charCode / 16) + hexChar(charCode % 16));
+						newVal = newVal.concat((escBacks ? "\\\\x" : "\\x") + hexChar(charCode / 16) + hexChar(charCode % 16));
 					else
 						newVal = newVal.concat(String.fromCharCode(charCode));
 				}
@@ -143,7 +150,7 @@
 			return newVal;
 		}
 		
-		private function unescape(val:String):String {
+		public function unescape(val:String):String {
 			var newVal:String = "";
 			for(var i:int = 0; i<val.length; i++) {
 				if(val.charAt(i) == "//") {
@@ -209,11 +216,10 @@
 			
 			_connected = true;
 			
+			//AS3.0 wants line to be null terminated
 			socketSend("need nulls");
+			//start authentication proccess
 			socketSend("995 authenticate, version="+protocol_ver);
-			
-			//wait for autentication to finish, then add open key
-			var key:String = new String("/PSK/Client/");
 		}
 		
 		private function onSocketError(evt:IOErrorEvent):void{
@@ -263,8 +269,8 @@
 				case Constants.SUCCESS_200_RESP:
 					if(tag == "report")
 					{
-						//Explicit ACK - mostly for Windows
-						socketSend("report ack");
+						//Explicit ACK - don't bother, reduces performance sometimes
+						//socketSend("report ack");
 						if(realData.substring(0,3) == "lid")
 						{
 							var lisid:int = int(realData.charAt(3));

@@ -30,7 +30,7 @@ package com.phidgets
 		private var _deviceLabel:String = null;
 		
 		//private var _deviceTypeNumber:int = 0;
-		private var _specificDevice:int = com.phidgets.Constants.PFALSE;
+		private var _specificDevice:int = com.phidgets.Constants.PHIDGETOPEN_ANY;
 		
 		protected var _phidgetSocket:PhidgetSocket = null;
 		private var randInt:int = 0; //used for the open/close command
@@ -68,13 +68,20 @@ package com.phidgets
 				password - password of the webservice. This is optional and doesn't need to be specified for unsecured webservices.
 				serialNumber - serial number of the phidget to open. This is optional and if not specified, the first available phidget will be opened.
 		*/
-		public function open(address:String, port:Number, password:String = null, serialNumber:int = 0x7FFFFFFF):void {
-			_serialNumber = serialNumber;
+		public function open(address:String, port:Number, password:String = null, serialNumber:int = com.phidgets.Constants.PUNK_INT, label:String = null):void {
 			_phidgetSocket = new PhidgetSocket();
-			if(serialNumber == com.phidgets.Constants.PUNK_INT)
-				_specificDevice = com.phidgets.Constants.PFALSE;
+			if(serialNumber != com.phidgets.Constants.PUNK_INT && serialNumber != -1)
+			{
+				_specificDevice = com.phidgets.Constants.PHIDGETOPEN_SERIAL;
+				_serialNumber = serialNumber;
+			}
+			else if(label != null)
+			{
+				_specificDevice = com.phidgets.Constants.PHIDGETOPEN_LABEL;
+				_deviceLabel = label;
+			}
 			else
-				_specificDevice = com.phidgets.Constants.PTRUE;
+				_specificDevice = com.phidgets.Constants.PHIDGETOPEN_ANY;
 			_phidgetSocket.connect(address, port, password, onConnected, onDisconnected, onError);
 		}
 		
@@ -86,8 +93,10 @@ package com.phidgets
 		public function close():void {
 			calledClose = true;
 			var key:String = "/PCK/Client/0.0.0.0/"+randInt+"/"+_deviceType;
-			if(_specificDevice == com.phidgets.Constants.PTRUE)
+			if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_SERIAL)
 				key = key+"/"+_serialNumber.toString();
+			else if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_LABEL)
+				key = key+"/-1/"+_phidgetSocket.escape(_deviceLabel);
 			_phidgetSocket.setKey(key, "Close", false);
 			_phidgetSocket.close();
 		}
@@ -98,14 +107,18 @@ package com.phidgets
 			var rand:Number = Math.random();
 			randInt = int(rand * 99999);
 			var key:String = "/PCK/Client/0.0.0.0/"+randInt+"/"+_deviceType;
-			if(_specificDevice == com.phidgets.Constants.PTRUE)
+			if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_SERIAL)
 				key = key+"/"+_serialNumber.toString();
+			else if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_LABEL)
+				key = key+"/-1/"+_phidgetSocket.escape(_deviceLabel);
 			_phidgetSocket.setKey(key, "Open", false);
 
 			//listen
 			var pattern:String = "/PSK/"+_deviceType;
-			if(_specificDevice == com.phidgets.Constants.PTRUE)
-				pattern = pattern+"/"+_serialNumber.toString();
+			if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_SERIAL)
+				pattern = pattern+"/[a-zA-Z_0-9/.\\\\-]*/"+_serialNumber.toString();
+			else if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_LABEL)
+				pattern = pattern+"/"+_phidgetSocket.escape(_deviceLabel, true);
 			_phidgetSocket.setListener(pattern, onPhidgetData);
 			
 			dispatchEvent(new PhidgetEvent(PhidgetEvent.CONNECT,this));
@@ -174,15 +187,20 @@ package com.phidgets
 			{
 				var dataArray:Array = key.split("/");
 				
-				var serialNumber:int = int(dataArray[3]);
-				var setThing:String = dataArray[4];
+				var label:String = _phidgetSocket.unescape(dataArray[3]);
+				var serialNumber:int = int(dataArray[4]);
+				var setThing:String = dataArray[5];
 				var index:int = 0;
-				if(dataArray.length>5)
-					index = int(dataArray[5]);
+				if(dataArray.length>6)
+					index = int(dataArray[6]);
 					
-				if(_specificDevice == com.phidgets.Constants.PFALSE && val != "Detached")
+				if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_ANY && val != "Detached")
 				{
-					_specificDevice = 2;
+					_specificDevice = com.phidgets.Constants.PHIDGETOPEN_ANY_ATTACHED;
+					_serialNumber = serialNumber;
+				}
+				if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_LABEL && val != "Detached")
+				{
 					_serialNumber = serialNumber;
 				}
 				
@@ -223,8 +241,11 @@ package com.phidgets
 								keyCountNeededGood = false;
 								detachDevice();
 							}
-							else
-								throw new PhidgetError(com.phidgets.Constants.EPHIDGET_NETWORK);
+							break;
+						case "Error":
+							var errorData:Array = val.split("/");
+							var error:PhidgetError = new PhidgetError(int(errorData[0]), errorData[1]);
+							onError(error);
 							break;
 						default:
 							onSpecificPhidgetData(setThing, index, val);
@@ -246,12 +267,13 @@ package com.phidgets
 			_attached = false;
 			if(!calledClose)
 				dispatchEvent(new PhidgetEvent(PhidgetEvent.DETACH,this));
-			if(_specificDevice == 2)
+			if(_specificDevice == com.phidgets.Constants.PHIDGETOPEN_ANY_ATTACHED)
 			{
-				_specificDevice = com.phidgets.Constants.PFALSE;
+				_specificDevice = com.phidgets.Constants.PHIDGETOPEN_ANY;
 				_serialNumber = com.phidgets.Constants.PUNK_INT;
 			}
-			_deviceLabel = null;
+			if(_specificDevice != com.phidgets.Constants.PHIDGETOPEN_LABEL)
+				_deviceLabel = null;
 			_deviceVersion = com.phidgets.Constants.PUNK_INT;
 			_deviceName = null;
 			initVars();
