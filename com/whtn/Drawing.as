@@ -1,4 +1,20 @@
-﻿package com.whtn {	import flash.display.Sprite;	import flash.geom.ColorTransform;	import com.whtn.DebugEvent;	public class Drawing extends Sprite { 		public static function drawBox(obj:Sprite=null,w:int=100,h:int=60,bgcolor:Number=0x333333,bgalpha:Number=1,lncolor=0xFFFFFF,lnalpha:Number=1):Sprite {			if(obj == null) {				obj = new Sprite();				//addChild(obj);			} else {				obj.graphics.lineStyle(0,lncolor,lnalpha);				obj.graphics.beginFill(bgcolor,bgalpha);				obj.graphics.drawRoundRect(0,0,w,h,5);				obj.graphics.endFill();			}			return obj;		}		public static function setColor(obj:Sprite=null,c:Number=0xFFFFFF,a:Number=1):void {			var myColor:ColorTransform = obj.transform.colorTransform;				myColor.color = c;				obj.transform.colorTransform = myColor;				return;			obj.graphics.lineStyle(0,0xffffff,.5);			obj.graphics.beginFill(c,a);			obj.graphics.drawRect(0,0,obj.width-2,obj.height-2);			obj.graphics.endFill();		}		public static function hex2rgb (hex):Object {			var red = hex>>16;			var greenBlue = hex-(red<<16)			var green = greenBlue>>8;			var blue = greenBlue - (green << 8);			//trace("r: " + red + " g: " + green + " b: " + blue);			return({r:red, g:green, b:blue});		}
+﻿package com.whtn {  import flash.display.Bitmap;  import flash.display.BitmapData;  import flash.display.GradientType;  import flash.display.Sprite;  import flash.display.SpreadMethod;  import flash.display.Graphics;  import flash.geom.ColorTransform;  import flash.geom.Matrix;	import com.whtn.DebugEvent;	public class Drawing extends Sprite { 		public static function drawBox(obj:Sprite=null,w:int=100,h:int=60,bgcolor:Number=0x333333,bgalpha:Number=1,lncolor=0xFFFFFF,lnalpha:Number=1):Sprite {			if(obj == null) {				obj = new Sprite();				//addChild(obj);			} else {				obj.graphics.lineStyle(0,lncolor,lnalpha);				obj.graphics.beginFill(bgcolor,bgalpha);				obj.graphics.drawRoundRect(0,0,w,h,5);				obj.graphics.endFill();			}			return obj;		}
+		public static function drawGradient(colors:Array,w:int=100,h:int=60):Sprite {
+			var fType:String = GradientType.LINEAR;
+			var alphas:Array = [];
+			for(i=0,m=colors.length;i<m;i++) alphas.push(1);
+			var ratios:Array = [];
+			for(i=0,m=(colors.length-1);i<=m;i++) ratios.push(Math.round((i/m)*255));
+			var matr:Matrix = new Matrix();
+			    matr.createGradientBox( w, h, 0, 0, 0 );
+			var sprMethod:String = SpreadMethod.PAD;
+			var sprite:Sprite = new Sprite();
+			var g:Graphics = sprite.graphics;
+			    g.beginGradientFill( fType, colors, alphas, ratios, matr, sprMethod );
+			    g.drawRect( 0, 0, w, h );
+			sprite.name = colors.toString();
+			return sprite;
+		}		public static function setColor(obj:Sprite=null,c:Number=0xFFFFFF,a:Number=1):void {			var myColor:ColorTransform = obj.transform.colorTransform;				myColor.color = c;				obj.transform.colorTransform = myColor;				return;			obj.graphics.lineStyle(0,0xffffff,.5);			obj.graphics.beginFill(c,a);			obj.graphics.drawRect(0,0,obj.width-2,obj.height-2);			obj.graphics.endFill();		}		public static function hex2rgb (hex):Object {			var red = hex>>16;			var greenBlue = hex-(red<<16)			var green = greenBlue>>8;			var blue = greenBlue - (green << 8);			//trace("r: " + red + " g: " + green + " b: " + blue);			return({r:red, g:green, b:blue});		}
 		public static function rgb2hex (rgb:Object):uint{
 			var hex = rgb.r << 16 ^ rgb.g << 8 ^ rgb.b;
 			return hex;

@@ -1,0 +1,3 @@
+﻿package com.whtn.effects {	import com.whtn.Effect;	import com.whtn.TubeSet;	public class MJ1Strobe extends Effect {		public function MJ1Strobe ():void {			super("mj1_strobe");			device = "mj1";			hotKey = "I";			trail = 0;			speed = 4;			channel = false;			var display:Array = [];			for(frame=0;frame<32;frame++) {
+				display = [];				var b = Math.round(frame - (Math.round(frame/2)*2));
+				for(i=0;i<16;i++) display.push(new TubeSet(i,(b*-100)));				sequence.push(display);			}			display = [];			for(i=0;i<16;i++) display.push(new TubeSet(i,0));//			sequence.push(display);		}//constructor	}}

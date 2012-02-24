@@ -1,2 +1,2 @@
 ﻿package com.whtn {	import flash.events.Event;	public class TubeEvent extends Event {		public var index:Object;		public var settings:TubeSet = new TubeSet();
-		public static var TUBE:String = "tube";		public function TubeEvent (_index:Object=null,_settings:TubeSet=null) {			this.index = _index;			this.settings = _settings;			super(TubeEvent.TUBE,true);		}	}}
+		public static var TUBE:String = "tube";		public static var BLACKOUT:String = "blackout";		public function TubeEvent (_index:Object=null,_settings:TubeSet=null) {			this.index = _index;			this.settings = _settings;			super(TubeEvent.TUBE,true);		}	}}

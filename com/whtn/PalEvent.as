@@ -1,0 +1,1 @@
+﻿package com.whtn {	import flash.events.Event;	public class PalEvent extends Event {		public var data:Object;		public function PalEvent (_data:Object=null) {			this.data = _data;			super("PalEvent",true);		}	}}
