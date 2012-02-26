@@ -6,6 +6,10 @@
 				PHIDGET_LED_CURRENT_LIMIT_60mA - 60mA.
 				PHIDGET_LED_CURRENT_LIMIT_80mA - 80mA.
 				*/				e.Device.CurrentLimit = 3;				e.Device.Voltage = 2;				_trace("current:"+e.Device.CurrentLimit + " / voltage:"+e.Device.Voltage);			} else if (e.Device.Type == "PhidgetAdvancedServo") {				for(i=0;i<8;i++) {					e.Device.setServoType(i, PhidgetAdvancedServo.PHIDGET_SERVO_HITEC_HS422);					e.Device.setEngaged(i, true);					e.Device.setPosition(i, nServoResetPosition);					e.Device.setVelocityLimit(i, 5);				}			}		}		private function onDetach(e:PhidgetEvent):void {			_trace(e);		}				private function onError(e:PhidgetErrorEvent):void {			_trace(e);		}		private function onPositionChange(e:PhidgetEvent):void {			//		}				public function sn1 (e:LightEvent):void {			if(!ceiling.isAttached)				return;			var _brightness:int = 0;			if(e.display!=null){				for(i in e.display) {					_brightness = (i<60) ? (e.display[i]/100*globalBrightness) : e.display[i];					if(aLightArchive[i] != _brightness || _brightness<=0)						ceiling.setDiscreteLED( i, _brightness );					aLightArchive[i]=_brightness;				}			} else {				_brightness = (e.index<60) ? (e.brightness / 100 * globalBrightness) : e.brightness;				ceiling.setDiscreteLED( e.index, Math.max(0,_brightness) );				aLightArchive[e.index] = _brightness;			}			return;		}
+		public function engageServo(s:String="L",b:Boolean=false):void {
+			var servoController = this.getChildByName("wallServo"+s);
+			if(servoController.isAttached)
+				servoController.setEngaged(i, b);		}
 
 		private function updateMJ1 (i,ts:TubeSet) {
 			if(ts.brightness >=0) aTubeArchive[i].brightness = ts.brightness;			if(ts.color >= 0) aTubeArchive[i].color = ts.color;
